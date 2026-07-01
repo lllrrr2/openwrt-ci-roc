@@ -1,24 +1,50 @@
-name: Trigger-All-Workflows  # 主要工作流的名称
+name: Trigger-All-Workflows
 
 on:
-  workflow_dispatch:  # 手动触发：通过 GitHub UI 来触发
+  workflow_dispatch:
   schedule:
-    - cron: 0 20 * * 5  # 北京时间星期六凌晨4点，定时触发
+    - cron: "0 18 * * 5"
+
+permissions:
+  contents: read
+  actions: read
 
 jobs:
-    Arthur-Athena-6-12:
-      uses: ./.github/workflows/Arthur&Athena-6.12.yml
 
-    Arthur-Athena-Master:
-      uses: ./.github/workflows/Arthur&Athena-Master.yml
- 
-    Taiyi-6-12:
-      needs: Arthur-Athena-6-12
-      uses: ./.github/workflows/Taiyi-6.12.yml
+    IPQ60XX-LibWrt:
+      uses: ./.github/workflows/IPQ60XX-LibWrt.yml
+      permissions:
+        contents: write
+        actions: write
 
-    Taiyi-Master:
-      needs: Arthur-Athena-Master
-      uses: ./.github/workflows/Taiyi-Master.yml
+    IPQ807X-LibWrt:
+      uses: ./.github/workflows/IPQ807X-LibWrt.yml
+      permissions:
+        contents: write
+        actions: write
 
-    All-Clean:
-      uses: ./.github/workflows/All-Clean.yml
+    JDCloud-ImmortalWrt:
+      uses: ./.github/workflows/JDCloud-ImmortalWrt.yml
+      permissions:
+        contents: write
+        actions: write
+
+    JDCloud-NoWiFi-ImmortalWrt:
+      uses: ./.github/workflows/JDCloud-NoWiFi-ImmortalWrt.yml
+      permissions:
+        contents: write
+        actions: write
+
+    x86-64-ImmortalWrt:
+      uses: ./.github/workflows/x86-64-ImmortalWrt.yml
+      permissions:
+        contents: write
+        actions: write
+
+    Build-Packages:
+      uses: ./.github/workflows/Build-Packages.yml
+      permissions:
+        contents: write
+        actions: read
+      with:
+        sdk_version: ALL
